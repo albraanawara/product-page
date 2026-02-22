@@ -34,7 +34,7 @@ const products = ref([
     image: "https://m.media-amazon.com/images/I/71YDLDU709L._AC_UY900_.jpg",
     badge: "SALE",
     price: 150,
-    discount: 0,
+    discount: 50,
     stock: 8,
     tags: ["Casual", "Winter"]
   },

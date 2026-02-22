@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const props = defineProps(['product'])
@@ -7,6 +7,13 @@ const router = useRouter()
 
 onMounted(() => console.log("ProductCard mounted"))
 onUnmounted(() => console.log("ProductCard unmounted"))
+
+const discountedPrice = computed(() => {
+  const price = Number(props.product.price)
+  const discount = Number(props.product.discount)
+
+  return (price - (price * discount) / 100).toFixed(2)
+})
 
 const goToProduct = () => {
   router.push(`/product/${props.product.id}`)
@@ -27,7 +34,20 @@ const goToProduct = () => {
         </div>
       </h2>
 
-      <p>${{ product.price }}</p>
+      <p class="font-bold">
+  <span v-if="product.discount > 0">
+    <span class="line-through text-gray-400 mr-2">
+      ${{ product.price }}
+    </span>
+    <span class="text-green-500">
+      ${{ discountedPrice }}
+    </span>
+  </span>
+
+  <span v-else>
+    ${{ product.price }}
+  </span>
+</p>
 
       <button class="btn btn-primary" @click="goToProduct">
         View Product

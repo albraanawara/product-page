@@ -25,8 +25,19 @@ const buyNow = () => {
     <p class="my-2">{{ product.description }}</p>
 
     <p class="font-bold">
-      Price: ${{ discountedPrice }}
-    </p>
+  <span v-if="product.discount > 0">
+    <span class="line-through text-gray-400 mr-2">
+      ${{ product.price }}
+    </span>
+    <span class="text-green-500">
+      ${{ discountedPrice }}
+    </span>
+  </span>
+
+  <span v-else>
+    ${{ product.price }}
+  </span>
+</p>
 
     <p>Stock: {{ product.stock }}</p>
 
